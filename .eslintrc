@@ -1,0 +1,24 @@
+{
+    "parser": "babel-eslint",
+
+    "env": {
+        "browser": true,
+        "node": true
+    },
+
+    "rules": {
+        "quotes": [2, "single", "avoid-escape"],
+        "react/jsx-uses-vars": 1,
+        "react/jsx-uses-react": 1,
+        "no-use-before-define": 0
+    },
+
+    "plugins": [
+        "react"
+    ],
+
+    "ecmaFeatures": {
+        "jsx": true
+    }
+
+}
