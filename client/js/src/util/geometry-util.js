@@ -17,7 +17,6 @@ function getArc({u, v}) {
  */
 
 function getArcFromAngularCoords({alpha, theta}) {
-    console.log({alpha, theta});
 
     let centerDistance = 1 / Math.cos(alpha);
     let radius = centerDistance - Math.cos(alpha);

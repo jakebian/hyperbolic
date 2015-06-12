@@ -7,12 +7,19 @@ module.exports = function (grunt) {
         browserify: {
 
             deps: {
+                options: {
+                    require: [
+                        'react',
+                        'jquery',
+                        'd3'
+                    ]
+                },
                 files: {
-                    'client/js/build/deps.js': 'client/js/src/deps.js'
+                    'client/js/build/deps.js': []
                 }
             },
 
-            build: {
+            buildAndWatch: {
                 options: {
                     transform: [
                         ['babelify', { 'stage': 0 }]
@@ -21,7 +28,9 @@ module.exports = function (grunt) {
                         'react',
                         'd3',
                         'jquery'
-                    ]
+                    ],
+                    watch: true,
+                    keepAlive: true
                 },
                 files: {
                     'client/js/build/bundle.js': 'client/js/src/app.js'
@@ -47,17 +56,10 @@ module.exports = function (grunt) {
                 ]
             }
 
-        },
-
-        watch: {
-            scripts: {
-                files: ['**/src/**/*.*'],
-                tasks: ['build'],
-            },
         }
     });
 
-    grunt.registerTask('build', ['babel', 'browserify:build'])
-    grunt.registerTask('default', ['build']);
+    grunt.registerTask('buildDev', ['babel', 'browserify:buildAndWatch'])
+    grunt.registerTask('default', 'buildDev');
 
 }

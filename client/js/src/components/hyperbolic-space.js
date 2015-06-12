@@ -1,50 +1,32 @@
 'use strict';
 import React from 'react';
-import D3Util from '../util/d3-util';
+import {PointsVis} from './points-vis';
+
+import HyperbolicDrawingUtil from '../util/d3/hyperbolic-drawing';
 import GeometryUtil from '../util/geometry-util';
 
 
-export class HyperbolicSpace extends React.Component {
-
-    propTypes: {
-        points: React.PropTypes.array.isRequired
-    }
-
-    componentDidMount() {
-
-        D3Util.getNewD3Vis({
-            element: React.findDOMNode(this),
-            size: {
-                x: '100%',
-                y: '300px'
-            },
-            groupAttrs: {
-                class: 'hyperbolic-vis'
-            }
-        });
-
-        this.componentDidUpdate();
-
-    }
+export class HyperbolicSpace extends PointsVis {
 
     componentDidUpdate() {
 
+        HyperbolicDrawingUtil.updateHyperbolicVis({
 
-        D3Util.updateHyperbolicVis({
             element: React.findDOMNode(this),
             data: {
                 arcs: this.props.points.map(GeometryUtil.getArc)
             },
-            gSelector: '.hyperbolic-vis'
+            config: {
+                gSelector: '.vis-container'
+            }
+
         });
 
     }
 
     render() {
 
-        return (
-            <div className="hyperbolic-vis-container"></div>
-        );
+        return <div className="hyperbolic-vis-container"></div>;
 
     }
 }

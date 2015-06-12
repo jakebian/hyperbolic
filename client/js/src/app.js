@@ -5,5 +5,5 @@ import {KinematicVis} from './components/kinematic-vis.js';
 
 React.render(
     <KinematicVis/>,
-    document.getElementById('content')
+    document.getElementById('vis')
 );

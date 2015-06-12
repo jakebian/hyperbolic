@@ -31,9 +31,10 @@ export class KinematicVis extends React.Component {
     }
 
     render() {
+
         return (
             <div>
-                <KinematicSpace />
+                <KinematicSpace points={this.state.points} />
                 <HyperbolicSpace points={this.state.points}/>
             </div>
         );
