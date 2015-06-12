@@ -3,7 +3,7 @@ import React from 'react';
 import {PointsVis} from './points-vis';
 
 import HyperbolicDrawingUtil from '../util/d3/hyperbolic-drawing';
-import GeometryUtil from '../util/geometry-util';
+import GeometryUtil from '../util/geometry';
 
 
 export class HyperbolicSpace extends PointsVis {
@@ -11,7 +11,6 @@ export class HyperbolicSpace extends PointsVis {
     componentDidUpdate() {
 
         HyperbolicDrawingUtil.updateHyperbolicVis({
-
             element: React.findDOMNode(this),
             data: {
                 arcs: this.props.points.map(GeometryUtil.getArc)
@@ -19,7 +18,6 @@ export class HyperbolicSpace extends PointsVis {
             config: {
                 gSelector: '.vis-container'
             }
-
         });
 
     }

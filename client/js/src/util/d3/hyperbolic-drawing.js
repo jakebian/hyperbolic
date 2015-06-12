@@ -1,12 +1,18 @@
 'use strict';
 import d3 from 'd3';
+import CommonUtil from '../common';
 
 module.exports = {
     updateHyperbolicVis: updateHyperbolicVis
 };
 
+const DEFAULT_CONFIG = {
+    scale: 200
+};
 
 function updateHyperbolicVis({element, data, config}) {
+
+    let getConfig = CommonUtil.getConfigGetter(config, DEFAULT_CONFIG);
 
     let g = d3.select(element).selectAll(config.gSelector);
 
@@ -17,8 +23,12 @@ function updateHyperbolicVis({element, data, config}) {
 
     return geodesics.enter()
         .append('path')
-        .attr('d', getD3Arc)
-        .attr('transform', getArcGeodesicTransform);
+        .attr('d',
+            arc => getD3Arc(arc, getConfig('scale'))
+        )
+        .attr('transform',
+                arc => getArcGeodesicTransform(arc, getConfig('scale'))
+        );
 
 }
 
@@ -28,21 +38,20 @@ function updateHyperbolicVis({element, data, config}) {
  */
 
 
-function getArcGeodesicTransform(arcSpecs) {
-    var R = 300;
-    return `translate(${[R * arcSpecs.center.x, R * arcSpecs.center.y]})`;
+function getArcGeodesicTransform(arcSpecs, scale) {
+    return `translate(${[
+        scale * arcSpecs.center.x,
+        scale * arcSpecs.center.y
+    ]})`;
 }
 
-function getD3Arc(arcSpecs) {
+function getD3Arc(arcSpecs, scale) {
 
-    var R = 300 * arcSpecs.radius;
-
+    let R = scale * arcSpecs.radius;
     return d3.svg.arc()
         .innerRadius(R - 1)
         .outerRadius(R)
         .startAngle(arcSpecs.range.start - Math.PI / 2)
         .endAngle(arcSpecs.range.end - Math.PI / 2)();
+
 }
-
-
-

@@ -1,5 +1,6 @@
 'use strict';
 import d3 from 'd3';
+import CommonUtil from '../common';
 
 module.exports = {
     updateKinematicVis: updateKinematicVis
@@ -16,6 +17,8 @@ const DEFAULT_CONFIG = {
 
 function updateKinematicVis({element, data, config}) {
 
+    let getConfig = CommonUtil.getConfigGetter(config, DEFAULT_CONFIG);
+
     let g = d3.select(element).selectAll(config.gSelector);
 
     let kinematicPoints = g.selectAll('.kinematic-point')
@@ -23,11 +26,8 @@ function updateKinematicVis({element, data, config}) {
 
     return kinematicPoints.enter()
             .append('circle')
-            .attr('cx', (point) => point.u * getConfig(config, 'scale'))
-            .attr('cy', (point) => point.v * getConfig(config, 'scale'))
-            .attr('r', getConfig(config, 'radius'));
+            .attr('cx', (point) => point.u * getConfig('scale'))
+            .attr('cy', (point) => point.v * getConfig('scale'))
+            .attr('r', getConfig('radius'));
 }
 
-function getConfig(config, field) {
-    return config[field] || DEFAULT_CONFIG[field];
-}

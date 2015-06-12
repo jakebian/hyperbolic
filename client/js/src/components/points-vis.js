@@ -12,14 +12,7 @@ export class PointsVis extends React.Component {
     componentDidMount() {
 
         D3CommonUtil.getNewD3Vis({
-            element: React.findDOMNode(this),
-            size: {
-                x: '100%',
-                y: '300px'
-            },
-            groupAttrs: {
-                class: 'vis-container'
-            }
+            element: React.findDOMNode(this)
         });
         this.componentDidUpdate();
     }
