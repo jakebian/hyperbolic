@@ -6,14 +6,25 @@ module.exports = function (grunt) {
 
         browserify: {
 
-            dist: {
+            deps: {
+                files: {
+                    'client/js/build/deps.js': 'client/js/src/deps.js'
+                }
+            },
+
+            build: {
                 options: {
                     transform: [
-                        ["babelify", { "stage": 0 }]
+                        ['babelify', { 'stage': 0 }]
+                    ],
+                    external: [
+                        'react',
+                        'd3',
+                        'jquery'
                     ]
                 },
                 files: {
-                    "client/js/build/bundle.js": "client/js/src/app.js"
+                    'client/js/build/bundle.js': 'client/js/src/app.js'
                 }
             }
         },
@@ -46,7 +57,7 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('build', ['babel', 'browserify'])
+    grunt.registerTask('build', ['babel', 'browserify:build'])
     grunt.registerTask('default', ['build']);
 
 }
