@@ -7,14 +7,15 @@ module.exports = {
 };
 
 const DEFAULT_CONFIG = {
-    origin: [500, 0],
+    origin: [250, 250],
     size: {
         x: '100%',
-        y: '300px'
+        y: '500px'
     },
     groupAttrs: {
         class: 'vis-container'
-    }
+    },
+    initZoom: 1.5
 };
 /**
  * Exposed functions
@@ -25,7 +26,7 @@ function getNewD3Vis({element, config}) {
     let getConfig = CommonUtil.getConfigGetter(config, DEFAULT_CONFIG);
 
     let zoom = d3.behavior.zoom()
-        .scale(1)
+        .scale(getConfig('initZoom'))
         .translate(getConfig('origin'))
         .on('zoom', zoomed);
 
@@ -39,7 +40,7 @@ function getNewD3Vis({element, config}) {
         .call(zoom)
         .append('g')
         .attr(getConfig('groupAttrs'))
-        .attr('transform', `translate(${getConfig('origin')})`);
+        .attr('transform', `translate(${getConfig('origin')})scale(${getConfig('initZoom')})`);
 
 
     return container;

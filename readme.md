@@ -1,3 +1,3 @@
-# babel-react-express-example
+# Hyperbolic
 
-A quick example of setting up a simple application using ES6 and babel on both client and server side.
+Hyperbolic & Conformal Geometry Visualizations in D3 + React, written in ES6

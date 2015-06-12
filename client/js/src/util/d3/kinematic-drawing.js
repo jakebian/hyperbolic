@@ -25,6 +25,8 @@ function updateKinematicVis({element, data, config}) {
         .data(data.points);
 
     return kinematicPoints.enter()
+            .append('g')
+            .classed('kinematic-point', true)
             .append('circle')
             .attr('cx', (point) => point.u * getConfig('scale'))
             .attr('cy', (point) => point.v * getConfig('scale'))

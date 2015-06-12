@@ -7,7 +7,7 @@ module.exports = {
 };
 
 const DEFAULT_CONFIG = {
-    scale: 200
+    scale: 150
 };
 
 function updateHyperbolicVis({element, data, config}) {
@@ -16,12 +16,18 @@ function updateHyperbolicVis({element, data, config}) {
 
     let g = d3.select(element).selectAll(config.gSelector);
 
-    let geodesics = g.selectAll('.geodesic')
+    g.append('circle')
+        .attr('r', getConfig('scale'))
+        .attr('class', 'base-circle');
+
+    let geodesics = g.selectAll('g.geodesic')
         .data(data.arcs);
 
     // addBaseCircle(g);
 
     return geodesics.enter()
+        .append('g')
+        .classed('geodesic', true)
         .append('path')
         .attr('d',
             arc => getD3Arc(arc, getConfig('scale'))
